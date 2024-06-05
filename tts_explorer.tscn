@@ -1,0 +1,137 @@
+[gd_scene load_steps=4 format=3 uid="uid://cijxdu4ux5uej"]
+
+[ext_resource type="Script" path="res://tts_explorer.gd" id="1_amqr7"]
+[ext_resource type="PackedScene" uid="uid://vkl7nu4cchc0" path="res://components/option_selector.tscn" id="2_2qky8"]
+[ext_resource type="PackedScene" uid="uid://bucni6gyo88y4" path="res://components/slider_value_label.tscn" id="3_6nnbf"]
+
+[node name="TTSExplorer" type="CanvasLayer" node_paths=PackedStringArray("language_dropdown", "voices_dropdown", "speaking_pitch", "speaking_rate", "speak_text", "speak_button")]
+script = ExtResource("1_amqr7")
+language_dropdown = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/LanguageSelector")
+voices_dropdown = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceSelector")
+speaking_pitch = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/PitchSlider")
+speaking_rate = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/RateSlider")
+speak_text = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TextEdit")
+speak_button = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Button")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text-to-Speech Explorer"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Language" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LanguageLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Language"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Language"
+
+[node name="PreviousLanguageButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Language"]
+layout_mode = 2
+text = "Previous"
+
+[node name="NextLanguageButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Language"]
+layout_mode = 2
+text = "Next"
+
+[node name="LanguageSelector" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionSelector" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/LanguageSelector" node_paths=PackedStringArray("option", "previous", "next") instance=ExtResource("2_2qky8")]
+option = NodePath("..")
+previous = NodePath("../../Language/PreviousLanguageButton")
+next = NodePath("../../Language/NextLanguageButton")
+
+[node name="Voice" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VoiceLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Voice"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Voice"
+
+[node name="PreviousVoiceButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Voice"]
+layout_mode = 2
+text = "Previous"
+
+[node name="NextVoiceButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Voice"]
+layout_mode = 2
+text = "Next"
+
+[node name="VoiceSelector" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+popup/item_0/text = ""
+popup/item_0/id = 0
+
+[node name="OptionSelector" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/VoiceSelector" node_paths=PackedStringArray("option", "previous", "next") instance=ExtResource("2_2qky8")]
+option = NodePath("..")
+previous = NodePath("../../Voice/PreviousVoiceButton")
+next = NodePath("../../Voice/NextVoiceButton")
+
+[node name="PitchLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Speaking Pitch"
+
+[node name="PitchSlider" type="HSlider" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="PitchValueLabel" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("slider") instance=ExtResource("3_6nnbf")]
+layout_mode = 2
+slider = NodePath("../PitchSlider")
+
+[node name="RateLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Speaking Rate"
+
+[node name="RateSlider" type="HSlider" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="RateValueLabel" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("slider") instance=ExtResource("3_6nnbf")]
+layout_mode = 2
+slider = NodePath("../RateSlider")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "The quick brown fox jumps over the lazy dog."
+placeholder_text = "Enter your text"
+wrap_mode = 1
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Speak"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bucni6gyo88y4"]
+
+[ext_resource type="Script" path="res://components/slider_value_label.gd" id="1_tk4jd"]
+
+[node name="ValueLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_tk4jd")
